@@ -1,0 +1,180 @@
+<div class="container mt-5">
+  <h1 class="mb-5">Employee Record Form</h1>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+      />
+    </symbol>
+  </svg>
+  <div
+    *ngIf="successAlert"
+    class="alert alert-success d-flex align-items-center"
+    role="alert"
+  >
+    <svg
+      class="bi flex-shrink-0 me-2"
+      width="24"
+      height="24"
+      role="img"
+      aria-label="Success:"
+    >
+      <use xlink:href="#check-circle-fill" />
+    </svg>
+    <div class="fs-5">
+      Success!
+      <span>Data has been Added Successfully.</span>
+    </div>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+      />
+    </symbol>
+  </svg>
+  <div
+    *ngIf="statusAlert"
+    class="alert alert-success d-flex align-items-center"
+    role="alert"
+  >
+    <svg
+      class="bi flex-shrink-0 me-2"
+      width="24"
+      height="24"
+      role="img"
+      aria-label="Success:"
+    >
+      <use xlink:href="#check-circle-fill" />
+    </svg>
+    <div class="fs-5">
+      Success!
+      <span>Status has been Added Successfully.</span>
+    </div>
+  </div>
+  <form [formGroup]="userForm" class="fs-5">
+    <div class="row mb-3">
+      <label for="name" class="col-md-2">Employee Name</label>
+      <div class="col-md-6">
+        <input
+          type="name"
+          class="form-control fs-5"
+          id="name"
+          formControlName="name"
+        />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="select" class="col-md-2">Employee Status</label>
+      <div class="col-md-6">
+        <select
+          class="form-select fs-5"
+          aria-label="Default select example"
+          formControlName="select"
+        >
+          <option selected>Select your option</option>
+          <option value="Contractual">Contractual</option>
+          <option value="Permanent">Permanent</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" (click)="formSubmit()" class="btn btn-success btn-lg">
+      Add Employee
+    </button>
+  </form>
+</div>
+
+<div class="container mt-5 fs-5">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        id="AllEmployee"
+        (click)="tabChange('AllEmployee')"
+      >
+        All Employee
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="ContractualEmployee"
+        (click)="tabChange('ContractualEmployee')"
+      >
+        Contractual Employee
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="PermanentEmployee"
+        (click)="tabChange('PermanentEmployee')"
+      >
+        Permanent Employee
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="container mt-5">
+  <table class="table fs-5" *ngIf="id === 'AllEmployee'">
+    <thead>
+      <tr>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Employee Status</th>
+        <!-- <th></th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of listItem">
+        <td>{{ data.name }}</td>
+        <td>{{ data.select }}</td>
+        <!-- <td>
+          <button class="btn btn-primary" (click)="status(data)">
+            Change Status
+          </button>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+  <table class="table fs-5" *ngIf="id === 'ContractualEmployee'">
+    <thead>
+      <tr>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Employee Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of contractual">
+        <td>{{ data.name }}</td>
+        <td>{{ data.select }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="contractBtn(data)">
+            Change to Permanent
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table fs-5" *ngIf="id === 'PermanentEmployee'">
+    <thead>
+      <tr>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Employee Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of permanent">
+        <td>{{ data.name }}</td>
+        <td>{{ data.select }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="permanentBtn(data)">
+            Change to Contractual
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
